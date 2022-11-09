@@ -10,4 +10,5 @@ Steps:
 1. Download .zip or clone the repository.
 2. Open folder with Visual Studio Code.
 3. Open a new terminal in VSC and run the npm install command (or npm i).
-4. Have fun!
+4. After dependencies installation is completed, start the application using npm start.
+5. Have fun!
