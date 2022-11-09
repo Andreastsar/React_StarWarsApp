@@ -10,36 +10,43 @@ function App() {
    const [moviesActive, setMoviesActive] = useState(false);
    const [charactersActive, setCharactersActive] = useState(false);
    const [planetsActive, setPlanetsActive] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
 
    const [movies, setMovies] = useState([]);
    const [characters, setCharacters] = useState([]);
    const [planets, setPlanets] = useState([]);
 
-   const fetchMoviesHandler = () => {
+   const fetchMoviesHandler = async () => {
+      setIsLoading(true);
       setMoviesActive(true);
       setCharactersActive(false);
       setPlanetsActive(false);
-      fetch(`https://swapi.dev/api/films/`)
+      await fetch(`https://swapi.dev/api/films/`)
          .then((res) => res.json())
          .then((data) => setMovies(data.results));
+      setIsLoading(false);
    };
 
-   const fetchCharactersHandler = () => {
+   const fetchCharactersHandler = async () => {
+      setIsLoading(true);
       setMoviesActive(false);
       setCharactersActive(true);
       setPlanetsActive(false);
-      fetch(`https://swapi.dev/api/people/`)
+      await fetch(`https://swapi.dev/api/people/`)
          .then((res) => res.json())
          .then((data) => setCharacters(data.results));
+      setIsLoading(false);
    };
 
-   const fetchPlanetsHandler = () => {
+   const fetchPlanetsHandler = async () => {
+      setIsLoading(true);
       setMoviesActive(false);
       setCharactersActive(false);
       setPlanetsActive(true);
-      fetch(`https://swapi.dev/api/planets/`)
+      await fetch(`https://swapi.dev/api/planets/`)
          .then((res) => res.json())
          .then((data) => setPlanets(data.results));
+      setIsLoading(false);
    };
 
    return (
@@ -56,17 +63,18 @@ function App() {
             <button onClick={fetchPlanetsHandler}>Planets</button>
          </section>
 
-         {moviesActive && (
+         {isLoading && <section>Loading...</section>}
+         {!isLoading && moviesActive && (
             <section>
                <MoviesList movies={movies}></MoviesList>
             </section>
          )}
-         {charactersActive && (
+         {!isLoading && charactersActive && (
             <section>
                <CharactersList characters={characters}></CharactersList>
             </section>
          )}
-         {planetsActive && (
+         {!isLoading && planetsActive && (
             <section>
                <PlanetsList planets={planets}></PlanetsList>
             </section>
