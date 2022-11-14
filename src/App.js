@@ -21,9 +21,9 @@ function App() {
       setMoviesActive(true);
       setCharactersActive(false);
       setPlanetsActive(false);
-      await fetch(`https://swapi.dev/api/films/`)
-         .then((res) => res.json())
-         .then((data) => setMovies(data.results));
+      const fetchedData = await fetch(`https://swapi.dev/api/films/`);
+      const movieData = await fetchedData.json();
+      setMovies(movieData.results);
       setIsLoading(false);
    };
 
@@ -32,9 +32,9 @@ function App() {
       setMoviesActive(false);
       setCharactersActive(true);
       setPlanetsActive(false);
-      await fetch(`https://swapi.dev/api/people/`)
-         .then((res) => res.json())
-         .then((data) => setCharacters(data.results));
+      const fetchedData = await fetch(`https://swapi.dev/api/people/`);
+      const characterData = await fetchedData.json();
+      setCharacters(characterData.results);
       setIsLoading(false);
    };
 
@@ -43,9 +43,9 @@ function App() {
       setMoviesActive(false);
       setCharactersActive(false);
       setPlanetsActive(true);
-      await fetch(`https://swapi.dev/api/planets/`)
-         .then((res) => res.json())
-         .then((data) => setPlanets(data.results));
+      const fetchedData = await fetch(`https://swapi.dev/api/planets/`);
+      const planetsData = await fetchedData.json();
+      setPlanets(planetsData.results);
       setIsLoading(false);
    };
 
